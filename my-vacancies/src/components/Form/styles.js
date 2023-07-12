@@ -11,7 +11,7 @@ export const FormStyles = styled.form`
     
     label {
         font-size: 18px;
-        margin: 10px 0px 10px 5px;
+        margin: 10px 0px 10px 2.5%;
     }
 
     input, select {

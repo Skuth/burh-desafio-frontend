@@ -1,19 +1,10 @@
-import { useForm } from "react-hook-form";
+import { useContext } from "react";
 import { FormStyles } from "./styles";
+import { VacanciesContext } from "../../contexts/VacanciesContext";
 
 export const Form = () => {
-  const {
-    register,
-    handleSubmit,
-    /* formState: { errors }, */
-    reset,
-  } = useForm();
 
-  const onSubmit = (result) => {
-    console.log(result);
-
-    reset()
-  };
+  const { register, handleSubmit, onSubmit } = useContext(VacanciesContext)
 
   return (
     <FormStyles onSubmit={handleSubmit(onSubmit)}>
@@ -39,14 +30,28 @@ export const Form = () => {
         <option value="Não iniciado">Não iniciado</option>
         <option value="Candidatura Enviada">Candidatura enviada</option>
         <option value="Triagem">Triagem</option>
-        <option value="Entrevista comportamental">Entrevista comportamental</option>
+        <option value="Entrevista comportamental">
+          Entrevista comportamental
+        </option>
         <option value="Entrevista técnica">Entrevista técnica</option>
         <option value="Teste técnico">Teste técnico</option>
       </select>
       <label htmlFor="date">Data</label>
-      <input type="date" id="date" placeholder="Selecione a data" {...register("date")} required/>
+      <input
+        type="date"
+        id="date"
+        placeholder="Selecione a data"
+        {...register("date")}
+        required
+      />
       <label htmlFor="wage">Salário</label>
-      <input type="number" id="wage" placeholder="Digite o valor" {...register("wage")} required/>
+      <input
+        type="number"
+        id="wage"
+        placeholder="Digite o valor"
+        {...register("wage")}
+        required
+      />
       <label htmlFor="isNational">A vaga é nacional?</label>
       <select id="isNational" {...register("isNational")}>
         <option value="Sim">Sim</option>
