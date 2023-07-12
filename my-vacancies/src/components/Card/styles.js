@@ -18,7 +18,6 @@ export const CardStyles = styled.li`
 
     @media (min-width: 800px) {
         max-width: 800px;
-        margin: 20px;
     }
 `
 

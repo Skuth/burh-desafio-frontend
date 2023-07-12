@@ -51,7 +51,11 @@ export const FormStyles = styled.form`
 
     @media (min-width: 750px) {
         max-width: 750px;
-        height: 601px;
+        height: 580px;
         margin: 20px;
+
+        span {
+            margin-left: 20px;
+        }
     }
 `

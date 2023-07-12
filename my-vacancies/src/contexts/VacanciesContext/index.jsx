@@ -3,11 +3,13 @@
 import { createContext, useState } from "react";
 
 import { useForm } from "react-hook-form";
+import { api } from "../../services/api";
 
 export const VacanciesContext = createContext();
 
 export const VacanciesProvider = ({ children }) => {
   const [listVacancies, setListVacancies] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const {
     register,
@@ -16,11 +18,28 @@ export const VacanciesProvider = ({ children }) => {
     reset,
   } = useForm();
 
+  const handleData = async () => {
+    const vacancies = await api.get("/vacancies").finally(() => setLoading(false))
+    setListVacancies(vacancies.data)
+}
+
   const onSubmit = (data) => {
-    setListVacancies((dataPrev) => [...dataPrev, data]);
+    setLoading(true)
+    api
+      .post("/vacancies", {
+        url: data.url,
+        platform: data.platform,
+        status: data.status,
+        date: data.date,
+        wage: data.wage,
+        isNational: data.isNational,
+      })
+      .then(handleData)
+      .catch((err) => console.log(err))
 
     reset();
   };
+  
 
   return (
     <VacanciesContext.Provider
@@ -29,7 +48,8 @@ export const VacanciesProvider = ({ children }) => {
         setListVacancies,
         register,
         handleSubmit,
-        onSubmit
+        onSubmit,
+        loading
       }}
     >
       {children}
