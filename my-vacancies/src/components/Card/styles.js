@@ -15,6 +15,11 @@ export const CardStyles = styled.li`
     span {
         display: flex;
     }
+
+    @media (min-width: 800px) {
+        max-width: 800px;
+        margin: 20px;
+    }
 `
 
 export const LinkStyles = styled(Link)`

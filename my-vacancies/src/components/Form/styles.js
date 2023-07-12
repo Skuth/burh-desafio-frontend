@@ -49,8 +49,9 @@ export const FormStyles = styled.form`
         color: var(--color-white-fixed);
     }
 
-    @media (min-width: 450px) {
-        max-width: 450px;
+    @media (min-width: 750px) {
+        max-width: 750px;
+        height: 601px;
         margin: 20px;
     }
 `
