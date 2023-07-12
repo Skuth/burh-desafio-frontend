@@ -54,8 +54,8 @@ export const Form = () => {
       />
       <label htmlFor="isNational">A vaga é nacional?</label>
       <select id="isNational" {...register("isNational")}>
-        <option value={true}>Sim</option>
-        <option value={false}>Não</option>
+        <option value="yes">Sim</option>
+        <option value="no">Não</option>
       </select>
       <button type="submit">Enviar</button>
     </FormStyles>

@@ -1,9 +1,12 @@
-// eslint-disable-next-line react/prop-types
-export const DivCard = ({ children1, children2 }) => {
+/* eslint-disable react/prop-types */
+
+import { DivCardStyles } from "./styles"
+
+export const DivCard = ({ children1, children2, bgColor}) => {
     return (
-        <div>
+        <DivCardStyles>
             <h2>{ children1 }</h2>
-            <p>{ children2 }</p>
-        </div>
+            <p style={{backgroundColor: bgColor }}>{ children2 }</p>
+        </DivCardStyles>
     )
 }

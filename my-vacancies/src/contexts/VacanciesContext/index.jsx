@@ -1,10 +1,11 @@
+/* eslint-disable react/prop-types */
+
 import { createContext, useState } from "react";
 
 import { useForm } from "react-hook-form";
 
 export const VacanciesContext = createContext();
 
-// eslint-disable-next-line react/prop-types
 export const VacanciesProvider = ({ children }) => {
   const [listVacancies, setListVacancies] = useState([]);
 
