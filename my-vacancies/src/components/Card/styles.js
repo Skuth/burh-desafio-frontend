@@ -12,6 +12,9 @@ export const CardStyles = styled.li`
         margin: 10px;
     }
     
+    span {
+        display: flex;
+    }
 `
 
 export const LinkStyles = styled(Link)`

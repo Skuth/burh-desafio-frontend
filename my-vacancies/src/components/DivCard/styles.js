@@ -5,11 +5,11 @@ export const DivCardStyles = styled.div`
     align-items: center;
 
     h2 {
-        margin: 10px;
+        margin: 10px 0px 10px 10px;
     }
 
     p {
-        margin: 10px;
+        margin: 10px 0px 10px 10px;
         padding: 5px;
 
         border-radius: 5px;
