@@ -1,9 +1,10 @@
 /* eslint-disable react/prop-types */
 
 import { createContext, useEffect, useState } from "react";
+import { api } from "../../services/api";
 
 import { useForm } from "react-hook-form";
-import { api } from "../../services/api";
+import { toast } from "react-toastify";
 
 export const VacanciesContext = createContext();
 
@@ -19,6 +20,23 @@ export const VacanciesProvider = ({ children }) => {
     reset,
   } = useForm();
 
+  const toastSuccessAdd = () => {
+    toast.success("Vaga adicionada com sucesso!");
+  };
+  const toastErrorInternal = () => {
+    toast.error("Ocorreu um erro inesperado, tente novamente mais tarde.");
+  };
+  const toastErrorTimeout = () => {
+    toast.error(
+      "Não foi possível estabelecer uma conexão com o servidor, tente novamente mais tarde."
+    );
+  };
+  const toastErrorTimeoutUser = () => {
+    toast.error(
+      "Sua conexão parece estar lenta, não foi possível realizar a simulação."
+    );
+  };
+
   const onSubmit = (data) => {
     setLoading(true);
     api
@@ -31,25 +49,37 @@ export const VacanciesProvider = ({ children }) => {
         isNational: data.isNational,
       })
       .then((res) => setHistory((dataPrev) => [...dataPrev, res.data]))
-      .catch((err) => console.log(err));
+      .then(toastSuccessAdd())
+      .catch((err) => {
+        if (err.message === "Request failed with status code 500") {
+          toastErrorInternal();
+        } else if (err.message === "Request failed with status code 408") {
+          toastErrorTimeout();
+        } else if (err.message === "timeout of 5000ms exceeded") {
+          toastErrorTimeoutUser;
+        }
+      });
 
     reset();
   };
 
   useEffect(() => {
     const handleData = async () => {
-        setLoading(true)
-        const vacancies = await api
-          .get("/vacancies")
-          .finally(() => setLoading(false));
-        setListVacancies(vacancies.data);
-      };
-    handleData()
-  }, [history])
+      setLoading(true);
+      const vacancies = await api
+        .get("/vacancies")
+        .finally(() => setLoading(false));
+      setListVacancies(vacancies.data);
+    };
+    handleData();
+  }, [history]);
 
   const deleteVacancie = (vacancieId) => {
-    api.delete(`/vacancies/${vacancieId}`).then(setHistory("delete"))
-  }
+    api
+      .delete(`/vacancies/${vacancieId}`)
+      .then(setHistory("delete"));
+      
+  };
 
   return (
     <VacanciesContext.Provider
@@ -60,7 +90,7 @@ export const VacanciesProvider = ({ children }) => {
         handleSubmit,
         onSubmit,
         loading,
-        deleteVacancie
+        deleteVacancie,
       }}
     >
       {children}
