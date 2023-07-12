@@ -9,7 +9,7 @@ export const VacanciesList = () => {
   return (
     <VacanciesListStyles>
       {listVacancies.map((vacancie, index) => (
-        <Card vacancie={vacancie} key={index} />
+        <Card vacancie={vacancie} key={index} id={vacancie.id}/>
       ))}
     </VacanciesListStyles>
   );

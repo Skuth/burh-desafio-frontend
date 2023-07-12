@@ -3,6 +3,8 @@ import { styled } from "styled-components";
 export const MainContent = styled.main`
 
     .dashboard-loading{
+        margin: 20px auto;
+
         font-size: 22px;
         font-weight: 700;
         color: var(--color-blue);

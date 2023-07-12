@@ -5,6 +5,7 @@ export const CardStyles = styled.li`
     width: 95%;
     height: 280px;
     margin: 10px auto;
+    position: relative;
 
     border: 1px solid var(--color-blue);
 
@@ -14,6 +15,24 @@ export const CardStyles = styled.li`
     
     span {
         display: flex;
+    }
+
+    .vacancie-card__button {
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border: none;
+        border-radius: 5px;
+        background-color: var(--color-red);
+        cursor: pointer;
+
+        color: var(--color-white-fixed);
     }
 
     @media (min-width: 800px) {

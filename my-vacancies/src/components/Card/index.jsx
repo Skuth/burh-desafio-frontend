@@ -3,8 +3,14 @@ import { DivCard } from "../DivCard";
 import { CardStyles, LinkStyles } from "./styles";
 
 import { GiBrazilFlag, GiEarthAmerica } from "react-icons/gi";
+import { BsFillTrashFill } from "react-icons/bs";
+import { useContext } from "react";
+import { VacanciesContext } from "../../contexts/VacanciesContext";
 
 export const Card = ({ vacancie }) => {
+
+    const { deleteVacancie } = useContext(VacanciesContext)
+
   return (
     <CardStyles>
       <p className="vacancie-card__url">
@@ -34,7 +40,7 @@ export const Card = ({ vacancie }) => {
       />
       <DivCard
         children1={"Data:"}
-        children2={vacancie.date}
+        children2={vacancie.id}
         bgColor={"var(--color-medium-gray)"}
       />
       <DivCard
@@ -56,6 +62,9 @@ export const Card = ({ vacancie }) => {
             : "var(--color-red)"
         }
       />
+      <button className="vacancie-card__button" onClick={() => deleteVacancie(vacancie._id)}>
+        <BsFillTrashFill />
+      </button>
     </CardStyles>
   );
 };

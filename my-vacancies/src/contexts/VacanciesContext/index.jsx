@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 import { useForm } from "react-hook-form";
 import { api } from "../../services/api";
@@ -9,6 +9,7 @@ export const VacanciesContext = createContext();
 
 export const VacanciesProvider = ({ children }) => {
   const [listVacancies, setListVacancies] = useState([]);
+  const [history, setHistory] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const {
@@ -18,13 +19,8 @@ export const VacanciesProvider = ({ children }) => {
     reset,
   } = useForm();
 
-  const handleData = async () => {
-    const vacancies = await api.get("/vacancies").finally(() => setLoading(false))
-    setListVacancies(vacancies.data)
-}
-
   const onSubmit = (data) => {
-    setLoading(true)
+    setLoading(true);
     api
       .post("/vacancies", {
         url: data.url,
@@ -34,12 +30,26 @@ export const VacanciesProvider = ({ children }) => {
         wage: data.wage,
         isNational: data.isNational,
       })
-      .then(handleData)
-      .catch((err) => console.log(err))
+      .then((res) => setHistory((dataPrev) => [...dataPrev, res.data]))
+      .catch((err) => console.log(err));
 
     reset();
   };
-  
+
+  useEffect(() => {
+    const handleData = async () => {
+        setLoading(true)
+        const vacancies = await api
+          .get("/vacancies")
+          .finally(() => setLoading(false));
+        setListVacancies(vacancies.data);
+      };
+    handleData()
+  }, [history])
+
+  const deleteVacancie = (vacancieId) => {
+    api.delete(`/vacancies/${vacancieId}`).then(setHistory("delete"))
+  }
 
   return (
     <VacanciesContext.Provider
@@ -49,7 +59,8 @@ export const VacanciesProvider = ({ children }) => {
         register,
         handleSubmit,
         onSubmit,
-        loading
+        loading,
+        deleteVacancie
       }}
     >
       {children}

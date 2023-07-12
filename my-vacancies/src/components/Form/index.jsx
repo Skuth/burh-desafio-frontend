@@ -57,7 +57,7 @@ export const Form = () => {
         <option value="yes">Sim</option>
         <option value="no">Não</option>
       </select>
-      <button type="submit">Enviar</button>
+      <button type="submit">Adicionar</button>
     </FormStyles>
   );
 };
