@@ -1,15 +1,15 @@
 /* eslint-disable react/prop-types */
+import { useContext } from "react";
 import { DivCard } from "../DivCard";
 import { CardStyles, LinkStyles } from "./styles";
+import { VacanciesContext } from "../../contexts/VacanciesContext";
 
 import { GiBrazilFlag, GiEarthAmerica } from "react-icons/gi";
 import { BsFillTrashFill } from "react-icons/bs";
-import { useContext } from "react";
-import { VacanciesContext } from "../../contexts/VacanciesContext";
 
 export const Card = ({ vacancie }) => {
-
-    const { deleteVacancie } = useContext(VacanciesContext)
+  
+  const { deleteVacancie } = useContext(VacanciesContext);
 
   return (
     <CardStyles>
@@ -62,7 +62,10 @@ export const Card = ({ vacancie }) => {
             : "var(--color-red)"
         }
       />
-      <button className="card-button__delete" onClick={() => deleteVacancie(vacancie._id)}>
+      <button
+        className="card-button__delete"
+        onClick={() => deleteVacancie(vacancie._id)}
+      >
         <BsFillTrashFill />
       </button>
     </CardStyles>

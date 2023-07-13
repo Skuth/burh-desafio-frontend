@@ -20,4 +20,4 @@ export const GlobalStyles = createGlobalStyle`
 
         --color-white-fixed: #FFF;
     }
-`
+`;

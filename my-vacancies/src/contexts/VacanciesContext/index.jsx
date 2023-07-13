@@ -82,7 +82,6 @@ export const VacanciesProvider = ({ children }) => {
     setHistory("delete");
   };
 
-  
   return (
     <VacanciesContext.Provider
       value={{
@@ -92,7 +91,7 @@ export const VacanciesProvider = ({ children }) => {
         handleSubmit,
         onSubmit,
         loading,
-        deleteVacancie
+        deleteVacancie,
       }}
     >
       {children}

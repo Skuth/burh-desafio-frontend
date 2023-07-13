@@ -1,8 +1,8 @@
+import { useContext } from "react";
 import { MainContent } from "./styles";
 import { Form } from "../../components/Form";
 import { Header } from "../../components/Header";
 import { VacanciesList } from "../../components/VacanciesList";
-import { useContext } from "react";
 import { VacanciesContext } from "../../contexts/VacanciesContext";
 
 import { ToastContainer } from "react-toastify";

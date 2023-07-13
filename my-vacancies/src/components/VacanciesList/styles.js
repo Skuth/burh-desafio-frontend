@@ -8,5 +8,4 @@ export const VacanciesListStyles = styled.ul`
     flex-wrap: wrap;
     overflow-y: scroll;
   }
-
 `;

@@ -4,8 +4,7 @@ import { FormStyles } from "./styles";
 import { VacanciesContext } from "../../contexts/VacanciesContext";
 
 export const Form = () => {
-
-  const { register, handleSubmit, onSubmit } = useContext(VacanciesContext)
+  const { register, handleSubmit, onSubmit } = useContext(VacanciesContext);
 
   return (
     <FormStyles onSubmit={handleSubmit(onSubmit)}>
