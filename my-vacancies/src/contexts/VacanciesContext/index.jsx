@@ -12,8 +12,6 @@ export const VacanciesProvider = ({ children }) => {
   const [listVacancies, setListVacancies] = useState([]);
   const [history, setHistory] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [modal, setModal] = useState("close");
-  const [idEdit, setIdEdit] = useState("");
 
   const {
     register,
@@ -38,8 +36,8 @@ export const VacanciesProvider = ({ children }) => {
       "Sua conexão parece estar lenta, não foi possível realizar a simulação."
     );
   };
-  const toastSuccessEdit = () => {
-    toast.success("Vaga editada com sucesso!");
+  const toastSuccessDelete = () => {
+    toast.success("Vaga deletada com sucesso!");
   };
 
   const onSubmit = (data) => {
@@ -79,33 +77,12 @@ export const VacanciesProvider = ({ children }) => {
     handleData();
   }, [history]);
 
-  const deleteVacancie = (vacancieId) => {
-    api.delete(`/vacancies/${vacancieId}`).then(setHistory("delete"));
+  const deleteVacancie = async (vacancieId) => {
+    await api.delete(`/vacancies/${vacancieId}`).then(toastSuccessDelete());
+    setHistory("delete");
   };
 
-  const onEdit = (data) => {
-    api
-      .put(`/vacancies/${idEdit}`, {
-        url: data.url,
-        platform: data.platform,
-        status: data.status,
-        date: data.date,
-        wage: data.wage,
-        isNational: data.isNational,
-      })
-      .then(setHistory("edit"))
-      .then(toastSuccessEdit())
-      .catch((err) => {
-        if (err.message === "Request failed with status code 500") {
-          toastErrorInternal();
-        } else if (err.message === "Request failed with status code 408") {
-          toastErrorTimeout();
-        } else if (err.message === "timeout of 5000ms exceeded") {
-          toastErrorTimeoutUser;
-        }
-      });
-  };
-
+  
   return (
     <VacanciesContext.Provider
       value={{
@@ -115,12 +92,7 @@ export const VacanciesProvider = ({ children }) => {
         handleSubmit,
         onSubmit,
         loading,
-        deleteVacancie,
-        modal,
-        setModal,
-        idEdit,
-        setIdEdit,
-        onEdit
+        deleteVacancie
       }}
     >
       {children}

@@ -3,13 +3,13 @@ import { DivCard } from "../DivCard";
 import { CardStyles, LinkStyles } from "./styles";
 
 import { GiBrazilFlag, GiEarthAmerica } from "react-icons/gi";
-import { BsFillTrashFill, BsFillPencilFill } from "react-icons/bs";
+import { BsFillTrashFill } from "react-icons/bs";
 import { useContext } from "react";
 import { VacanciesContext } from "../../contexts/VacanciesContext";
 
 export const Card = ({ vacancie }) => {
 
-    const { deleteVacancie, setModal, setIdEdit } = useContext(VacanciesContext)
+    const { deleteVacancie } = useContext(VacanciesContext)
 
   return (
     <CardStyles>
@@ -64,9 +64,6 @@ export const Card = ({ vacancie }) => {
       />
       <button className="card-button__delete" onClick={() => deleteVacancie(vacancie._id)}>
         <BsFillTrashFill />
-      </button>
-      <button className="card-button__edit" onClick={() => setModal("open") & setIdEdit(vacancie._id)}>
-        <BsFillPencilFill />
       </button>
     </CardStyles>
   );
