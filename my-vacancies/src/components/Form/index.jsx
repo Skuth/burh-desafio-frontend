@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useContext } from "react";
 import { FormStyles } from "./styles";
 import { VacanciesContext } from "../../contexts/VacanciesContext";

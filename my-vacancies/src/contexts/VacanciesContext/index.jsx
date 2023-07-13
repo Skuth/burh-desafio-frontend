@@ -12,6 +12,8 @@ export const VacanciesProvider = ({ children }) => {
   const [listVacancies, setListVacancies] = useState([]);
   const [history, setHistory] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [modal, setModal] = useState("close");
+  const [idEdit, setIdEdit] = useState("");
 
   const {
     register,
@@ -36,6 +38,9 @@ export const VacanciesProvider = ({ children }) => {
       "Sua conexão parece estar lenta, não foi possível realizar a simulação."
     );
   };
+  const toastSuccessEdit = () => {
+    toast.success("Vaga editada com sucesso!");
+  };
 
   const onSubmit = (data) => {
     setLoading(true);
@@ -48,7 +53,7 @@ export const VacanciesProvider = ({ children }) => {
         wage: data.wage,
         isNational: data.isNational,
       })
-      .then((res) => setHistory((dataPrev) => [...dataPrev, res.data]))
+      .then(() => setHistory("post"))
       .then(toastSuccessAdd())
       .catch((err) => {
         if (err.message === "Request failed with status code 500") {
@@ -75,10 +80,30 @@ export const VacanciesProvider = ({ children }) => {
   }, [history]);
 
   const deleteVacancie = (vacancieId) => {
+    api.delete(`/vacancies/${vacancieId}`).then(setHistory("delete"));
+  };
+
+  const onEdit = (data) => {
     api
-      .delete(`/vacancies/${vacancieId}`)
-      .then(setHistory("delete"));
-      
+      .put(`/vacancies/${idEdit}`, {
+        url: data.url,
+        platform: data.platform,
+        status: data.status,
+        date: data.date,
+        wage: data.wage,
+        isNational: data.isNational,
+      })
+      .then(setHistory("edit"))
+      .then(toastSuccessEdit())
+      .catch((err) => {
+        if (err.message === "Request failed with status code 500") {
+          toastErrorInternal();
+        } else if (err.message === "Request failed with status code 408") {
+          toastErrorTimeout();
+        } else if (err.message === "timeout of 5000ms exceeded") {
+          toastErrorTimeoutUser;
+        }
+      });
   };
 
   return (
@@ -91,6 +116,11 @@ export const VacanciesProvider = ({ children }) => {
         onSubmit,
         loading,
         deleteVacancie,
+        modal,
+        setModal,
+        idEdit,
+        setIdEdit,
+        onEdit
       }}
     >
       {children}

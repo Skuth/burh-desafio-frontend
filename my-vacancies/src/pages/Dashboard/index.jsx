@@ -7,17 +7,19 @@ import { VacanciesContext } from "../../contexts/VacanciesContext";
 
 import { ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
+import { Modal } from "../../components/Modal";
 
 export const Dashboard = () => {
 
-    const { loading } = useContext(VacanciesContext)
-
+    const { loading, modal } = useContext(VacanciesContext)
+    
   return (
     <>
     <Header />
     <MainContent>
       <Form />
       {loading ? <p className="dashboard-loading">Carregando...</p> : <VacanciesList />}
+    <Modal display={modal === "close" ? "none" : "flex"}/>
     </MainContent>
     <ToastContainer/>
     </>

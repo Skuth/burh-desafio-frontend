@@ -17,7 +17,7 @@ export const CardStyles = styled.li`
         display: flex;
     }
 
-    .vacancie-card__button {
+    .card-button__delete {
         width: 30px;
         height: 30px;
         position: absolute;
@@ -30,6 +30,24 @@ export const CardStyles = styled.li`
         border: none;
         border-radius: 5px;
         background-color: var(--color-red);
+        cursor: pointer;
+
+        color: var(--color-white-fixed);
+    }
+
+    .card-button__edit {
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        top: 60px;
+        right: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border: none;
+        border-radius: 5px;
+        background-color: var(--color-dark-yellow);
         cursor: pointer;
 
         color: var(--color-white-fixed);
