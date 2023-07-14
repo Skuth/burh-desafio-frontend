@@ -14,7 +14,7 @@ export const Card = ({ vacancie }) => {
   return (
     <CardStyles>
       <p className="vacancie-card__url">
-        <LinkStyles to={vacancie.url}>Link da vaga</LinkStyles>
+        <LinkStyles to={vacancie.url} target="_blank">Link da vaga</LinkStyles>
       </p>
       <DivCard
         children1={"Plataforma:"}
